@@ -93,3 +93,13 @@ class Board:
             return [i for i in intlist if i not in currow + curcol + cursquare ]
         else:
             return False
+
+    #Returns the first open space
+    #For use with backtracking
+    #Returns -1, -1 if full
+    def getFirstOpen(self):
+        for rownum, row in enumerate(self._board):
+            for colnum, col in enumerate(row):
+                if self._board[rownum][colnum] == 0:
+                    return rownum, colnum
+        return -1, -1

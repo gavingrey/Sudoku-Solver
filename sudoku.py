@@ -49,3 +49,47 @@ class Board:
                 self._board[row, col] = num
                 return True
         return False
+
+    #Attempts to return a given row
+    #Returns False if fail
+    def getrow(self, row):
+        try:
+            return self._board[row]
+        except:
+            return False
+
+    #Attempts to return a given column
+    #Returns False if fail
+    def getcol(self, col):
+        try:
+            return [row[col] for row in self._board]
+        except:
+            return False
+
+    #Attempts to return a given square
+    #Returns square in the form of a single list of ints
+    #Returns False if fail
+    def getsquare(self, row, col):
+        square = []
+        try:
+            rowSection = row // 3
+            colSection = col // 3
+            firstRow = 3 * rowSection
+            firstCol = 3 * colSection
+            for row in self._board[firstRow:firstRow + 3]:
+                square.extend(row[firstCol:firstCol + 3])
+            return square
+        except:
+            return False
+
+    #Attempts to return a list of possible integers for a space
+    #Returns False if fail
+    def possible(self, row, col):
+        intlist = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        currow = self.getrow(row)
+        curcol = self.getcol(col)
+        cursquare = self.getsquare(row, col)
+        if currow and currow and cursquare:
+            return [i for i in intlist if i not in currow + curcol + cursquare ]
+        else:
+            return False
